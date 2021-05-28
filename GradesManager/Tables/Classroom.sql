@@ -8,5 +8,4 @@
 	[Exclusion] DATETIME        NULL,
 	CONSTRAINT [PK_Classroom] PRIMARY KEY CLUSTERED ([ID] ASC),
 	CONSTRAINT [FK_Classroom_School] FOREIGN KEY ([School]) REFERENCES [dbo].[School] ([ID]),
-	CONSTRAINT [FK_Classroom_Level] FOREIGN KEY ([Level]) REFERENCES [dbo].[Level] ([ID]),
 )

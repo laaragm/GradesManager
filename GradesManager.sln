@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesManager.Domain", "GradesManager.Domain\GradesManager.Domain.csproj", "{978B3DF1-31B4-4FC7-B81C-C89C4C414B28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0826AA18-977A-4ABD-9C29-570C9A2888AD}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GradesManager", "GradesManager\GradesManager.sqlproj", "{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{978B3DF1-31B4-4FC7-B81C-C89C4C414B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978B3DF1-31B4-4FC7-B81C-C89C4C414B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978B3DF1-31B4-4FC7-B81C-C89C4C414B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978B3DF1-31B4-4FC7-B81C-C89C4C414B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFB7FD7A-5705-4C23-BC34-E09A8C5B1919} = {0826AA18-977A-4ABD-9C29-570C9A2888AD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDD65553-596E-4CA5-9121-AEEE6A5DB278}
+	EndGlobalSection
+EndGlobal

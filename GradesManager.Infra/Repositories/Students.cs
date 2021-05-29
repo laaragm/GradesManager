@@ -4,7 +4,7 @@ using GradesManager.Domain.Entities;
 using GradesManager.Infra.Abstractions;
 using System;
 
-namespace GradesManager.Infra
+namespace GradesManager.Infra.Repositories
 {
 	public class Students : DapperRepository<Student>, IStudents
 	{

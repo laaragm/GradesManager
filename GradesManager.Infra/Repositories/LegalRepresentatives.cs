@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GradesManager.Infra
+namespace GradesManager.Infra.Repositories
 {
 	public class LegalRepresentatives : DapperRepository<LegalRepresentative>, ILegalRepresentatives
 	{

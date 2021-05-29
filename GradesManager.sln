@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Infra.Abstractions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesManager.API", "GradesManager.API\GradesManager.API.csproj", "{3336CC27-5A2C-48D0-969A-CA7A0280BD6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesManager.Services", "GradesManager.Services\GradesManager.Services.csproj", "{D34869C4-5998-4303-B42C-42E31DB598CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesManager.Services.Abstractions", "GradesManager.Services.Abstractions\GradesManager.Services.Abstractions.csproj", "{19F58A3E-6B6A-4558-B6F4-69F0972D0CBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{3336CC27-5A2C-48D0-969A-CA7A0280BD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3336CC27-5A2C-48D0-969A-CA7A0280BD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3336CC27-5A2C-48D0-969A-CA7A0280BD6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D34869C4-5998-4303-B42C-42E31DB598CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D34869C4-5998-4303-B42C-42E31DB598CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D34869C4-5998-4303-B42C-42E31DB598CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D34869C4-5998-4303-B42C-42E31DB598CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F58A3E-6B6A-4558-B6F4-69F0972D0CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F58A3E-6B6A-4558-B6F4-69F0972D0CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F58A3E-6B6A-4558-B6F4-69F0972D0CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F58A3E-6B6A-4558-B6F4-69F0972D0CBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

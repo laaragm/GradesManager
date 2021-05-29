@@ -6,11 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GradesManager.Infra
+namespace GradesManager.Infra.Repositories
 {
-	public class Schools : DapperRepository<School>, ISchools
+	public class Classrooms : DapperRepository<Classroom>, IClassrooms
 	{
-		public Schools(IInfraSettings infraSettings) : base(infraSettings, "School")
+		public Classrooms(IInfraSettings infraSettings) : base(infraSettings, "Classroom")
 		{
 		}
 	}

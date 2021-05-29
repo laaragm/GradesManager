@@ -60,13 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Classroom.sql" />
-    <Build Include="Tables\Level.sql" />
     <Build Include="Tables\Student.sql" />
     <Build Include="Tables\LegalRepresentative.sql" />
     <Build Include="Tables\Grade.sql" />
     <Build Include="Tables\Discipline.sql" />
     <Build Include="Tables\ClassroomDiscipline.sql" />
-    <Build Include="Tables\ClassroomStudent.sql" />
     <Build Include="Tables\School.sql" />
   </ItemGroup>
 </Project>

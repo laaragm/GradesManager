@@ -2,6 +2,7 @@
 using Base.Infra.Repositories;
 using GradesManager.Domain.Entities;
 using GradesManager.Infra.Abstractions;
+using GradesManager.Infra.Abstractions.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;

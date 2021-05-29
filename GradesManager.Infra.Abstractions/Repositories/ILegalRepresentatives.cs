@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GradesManager.Infra.Abstractions
+namespace GradesManager.Infra.Abstractions.Repositories
 {
-	public interface IGrades : IRepository<Grade>
+	public interface ILegalRepresentatives : IRepository<LegalRepresentative>
 	{
 
 	}

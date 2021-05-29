@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Base.Infra.Repositories
 {
@@ -51,6 +52,33 @@ namespace Base.Infra.Repositories
 			using (var connection = GetConnection())
 			{
 				return connection.QuerySingle<T>(query, new { id });
+			}
+		}
+
+		public async Task<IEnumerable<T>> AllAsync()
+		{
+			var query = $"SELECT * FROM {Table};";
+			using (var connection = GetConnection())
+			{
+				return await connection.QueryAsync<T>(query);
+			}
+		}
+
+		public async Task DeleteAsync(long id)
+		{
+			var query = $"UPDATE {Table} SET Exclusion = @exclusion WHERE ID = @id;";
+			using (var connection = GetConnection())
+			{
+				await connection.QueryAsync(query, new { exclusion = DateTime.UtcNow, id });
+			}
+		}
+
+		public async Task<T> FetchByIDAsync(long id)
+		{
+			var query = $"SELECT * FROM {Table} WHERE ID = @id;";
+			using (var connection = GetConnection())
+			{
+				return await connection.QuerySingleAsync<T>(query, new { id });
 			}
 		}
 	}

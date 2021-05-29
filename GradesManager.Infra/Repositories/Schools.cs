@@ -1,13 +1,15 @@
-﻿using Base.Infra.Abstractions;
+﻿using AutoMapper;
+using Base.Infra.Abstractions;
 using Base.Infra.Repositories;
 using Dapper;
 using GradesManager.Domain.Entities;
 using GradesManager.Infra.Abstractions;
-using GradesManager.Infra.Models;
+using GradesManager.Infra.Abstractions.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GradesManager.Infra.Repositories
 {
@@ -17,30 +19,30 @@ namespace GradesManager.Infra.Repositories
 		{
 		}
 
-		public SchoolModel Create(SchoolModel model)
+		public async Task<School> Save(School school)
 		{
 			var query = $@"INSERT INTO {Table} (Name, Owner, Principal, Address, PhoneNumber, CNPJ, Creation)
 							OUTPUT Inserted.ID
 							VALUES(@name, @owner, @principal, @address, @phoneNumber, @cnpj, @creation);";
 			using (var connection = GetConnection())
 			{
-				var id = connection.Query<long>(query, new
+				var id = await connection.QueryAsync<long>(query, new
 				{ 
-					name = model.Name,
-					owner = model.Owner,
-					principal = model.Principal,
-					address = model.Address,
-					phoneNumber = model.PhoneNumber,
-					cnpj = model.CNPJ,
+					name = school.Name,
+					owner = school.Owner,
+					principal = school.Principal,
+					address = school.Address,
+					phoneNumber = school.PhoneNumber,
+					cnpj = school.CNPJ,
 					creation = DateTime.UtcNow
-				}).Single();
-				model.ID = id;
+				});
+				school.ID = id.FirstOrDefault();
 
-				return model;
+				return school;
 			}
 		}
 
-		public void Update(SchoolModel model)
+		public async Task Update(School school)
 		{
 			var query = $@"UPDATE {Table}
 							SET
@@ -53,14 +55,14 @@ namespace GradesManager.Infra.Repositories
 							WHERE ID = @id;";
 			using (var connection = GetConnection())
 			{
-				connection.Query<SchoolModel>(query, new
+				await connection.QueryAsync<School>(query, new
 				{
-					name = model.Name,
-					owner = model.Owner,
-					principal = model.Principal,
-					address = model.Address,
-					phoneNumber = model.PhoneNumber,
-					cnpj = model.CNPJ
+					name = school.Name,
+					owner = school.Owner,
+					principal = school.Principal,
+					address = school.Address,
+					phoneNumber = school.PhoneNumber,
+					cnpj = school.CNPJ
 				});
 			}
 		}

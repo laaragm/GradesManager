@@ -1,15 +1,16 @@
 ﻿using Base.Infra.Abstractions.Repositories;
 using GradesManager.Domain.Entities;
-using GradesManager.Infra.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace GradesManager.Infra.Abstractions
+namespace GradesManager.Infra.Abstractions.Repositories
 {
 	public interface ISchools : IRepository<School>
 	{
-		void Update(SchoolModel model);
+		Task<School> Save(School school);
+		Task Update(School school);
 
 	}
 }

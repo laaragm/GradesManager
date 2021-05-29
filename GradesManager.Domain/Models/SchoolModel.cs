@@ -1,8 +1,9 @@
-﻿using System;
+﻿using GradesManager.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GradesManager.Infra.Models
+namespace GradesManager.Domain.Models
 {
 	public class SchoolModel
 	{
@@ -13,5 +14,19 @@ namespace GradesManager.Infra.Models
 		public string Address { get; set; }
 		public string PhoneNumber { get; set; }
 		public string CNPJ { get; set; }
+
+		public School ToEntity()
+		{
+			return new School
+			{
+				ID = ID,
+				Name = Name,
+				Owner = Owner,
+				Principal = Principal,
+				Address = Address,
+				PhoneNumber = PhoneNumber,
+				CNPJ = CNPJ
+			};
+		}
 	}
 }

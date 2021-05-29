@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GradesManager.Infra.Abstractions\GradesManager.Infra.Abstractions.csproj" />
+    <ProjectReference Include="..\GradesManager.Services.Abstractions\GradesManager.Services.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

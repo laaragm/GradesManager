@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GradesManager.Infra.Abstractions
+namespace GradesManager.Infra.Abstractions.Repositories
 {
-	public interface IClassrooms : IRepository<Classroom>
+	public interface IGrades : IRepository<Grade>
 	{
 
 	}

@@ -15,7 +15,8 @@ namespace GradesManager.Services.Extensions
 					.AddScoped<IClassroomService, ClassroomService>()
 					.AddScoped<ILegalRepresentativeService, LegalRepresentativeService>()
 					.AddScoped<IStudentService, StudentService>()
-					.AddScoped<IDisciplineService, DisciplineService>();
+					.AddScoped<IDisciplineService, DisciplineService>()
+					.AddScoped<IGradeService, GradeService>();
 		}
 
 	}

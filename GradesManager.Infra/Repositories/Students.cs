@@ -72,9 +72,9 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
-		public override async Task<IEnumerable<Student>> AllAsync()
+		private string BaseQuery
 		{
-			var query = $@"SELECT
+			get => $@"SELECT
 								Student.ID,
 								Student.Name,
 								Classroom.ID Classroom_ID,
@@ -88,6 +88,7 @@ namespace GradesManager.Infra.Repositories
 								School.Creation School_Creation,
 								Classroom.Level Classroom_Level,
 								Classroom.Name Classroom_Name,
+								Classroom.Year Classroom_Year,
 								Classroom.Creation Classroom_Creation,
 								LegalRepresentative.ID LegalRepresentative_ID,
 								LegalRepresentative.Name LegalRepresentative_Name,
@@ -100,7 +101,12 @@ namespace GradesManager.Infra.Repositories
 							JOIN LegalRepresentative	ON LegalRepresentative.ID	= Student.LegalRepresentative
 							JOIN Classroom				ON Classroom.ID				= Student.Classroom
 							JOIN School					ON School.ID				= Classroom.School
-							WHERE Student.Exclusion IS NULL;";
+							WHERE Student.Exclusion IS NULL";
+		}
+
+		public override async Task<IEnumerable<Student>> AllAsync()
+		{
+			var query = BaseQuery;
 			using (var connection = GetConnection())
 			{
 				return Slapper.AutoMapper.MapDynamic<Student>(await connection.QueryAsync<dynamic>(query));
@@ -109,34 +115,8 @@ namespace GradesManager.Infra.Repositories
 
 		public override async Task<Student> FetchByIDAsync(long id)
 		{
-			var query = $@"SELECT
-								Student.ID,
-								Student.Name,
-								Classroom.ID Classroom_ID,
-								School.ID School_ID,
-								School.Name School_Name,
-								School.Owner School_Owner,
-								School.Principal School_Principal,
-								School.Address School_Address,
-								School.PhoneNumber School_PhoneNumber,
-								School.CNPJ School_CNPJ,
-								School.Creation School_Creation,
-								Classroom.Level Classroom_Level,
-								Classroom.Name Classroom_Name,
-								Classroom.Creation Classroom_Creation,
-								LegalRepresentative.ID LegalRepresentative_ID,
-								LegalRepresentative.Name LegalRepresentative_Name,
-								LegalRepresentative.PhoneNumber LegalRepresentative_PhoneNumber,
-								LegalRepresentative.Creation LegalRepresentative_Creation,
-								Student.Birthday,
-								Student.Address,
-								Student.Creation
-							FROM {Table}
-							JOIN LegalRepresentative	ON LegalRepresentative.ID	= Student.LegalRepresentative
-							JOIN Classroom				ON Classroom.ID				= Student.Classroom
-							JOIN School					ON School.ID				= Classroom.School
-							WHERE Student.Exclusion IS NULL
-								AND Student.ID = @id;";
+			var query = $@"{BaseQuery}
+							AND Student.ID = @id;";
 			using (var connection = GetConnection())
 			{
 				return Slapper.AutoMapper.MapDynamic<Student>(await connection.QuerySingleOrDefaultAsync<dynamic>(query, new { id }));

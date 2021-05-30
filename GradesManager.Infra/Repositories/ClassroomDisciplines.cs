@@ -84,6 +84,7 @@ namespace GradesManager.Infra.Repositories
 							School.Creation School_Creation,
 							Classroom.Level Classroom_Level,
 							Classroom.Name Classroom_Name,
+							Classroom.Year Classroom_Year,
 							Classroom.Creation Classroom_Creation,
 							ClassroomDiscipline.Teacher,
 							ClassroomDiscipline.Creation

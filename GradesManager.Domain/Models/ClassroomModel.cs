@@ -13,6 +13,7 @@ namespace GradesManager.Domain.Models
 		public string Name { get; set; }
 		public virtual SchoolModel School { get; set; }
 		public Level Level { get; set; }
+		public long Year { get; set; }
 		public DateTime? Creation { get; }
 
 		public ClassroomModel(Classroom classroom)
@@ -21,6 +22,7 @@ namespace GradesManager.Domain.Models
 			Name = classroom.Name;
 			School = GetSchoolModel(classroom);
 			Level = classroom.Level;
+			Year = classroom.Year;
 			Creation = classroom.Creation;
 		}
 
@@ -36,6 +38,7 @@ namespace GradesManager.Domain.Models
 				Name = Name,
 				School = School?.ToEntity(),
 				Level = Level,
+				Year = Year,
 				Creation = Creation
 			};
 		}

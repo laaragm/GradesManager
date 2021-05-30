@@ -30,9 +30,9 @@ namespace GradesManager.Infra.Repositories
 
 		public async Task<Classroom> Save(Classroom classroom)
 		{
-			var query = $@"INSERT INTO {Table} (Name, School, Level, Creation)
+			var query = $@"INSERT INTO {Table} (Name, School, Level, Year, Creation)
 							OUTPUT Inserted.ID
-							VALUES(@name, @school, @level, @creation);";
+							VALUES(@name, @school, @level, @year, @creation);";
 			using (var connection = GetConnection())
 			{
 				var id = await connection.QueryAsync<long>(query, new
@@ -40,6 +40,7 @@ namespace GradesManager.Infra.Repositories
 					name = classroom.Name,
 					school = classroom.School.ID,
 					level = classroom.Level,
+					year = classroom.Year,
 					creation = DateTime.UtcNow
 				});
 				classroom.ID = id.FirstOrDefault();
@@ -54,7 +55,8 @@ namespace GradesManager.Infra.Repositories
 							SET
 								Name = @name,
 								School = @school,
-								Level = @level
+								Level = @level,
+								Year = @year
 							WHERE ID = @id;";
 			using (var connection = GetConnection())
 			{
@@ -63,6 +65,7 @@ namespace GradesManager.Infra.Repositories
 					name = classroom.Name,
 					school = classroom.School.ID,
 					level = classroom.Level,
+					year = classroom.Year,
 					id = classroom.ID
 				});
 			}
@@ -82,6 +85,7 @@ namespace GradesManager.Infra.Repositories
 								School.Creation School_Creation,
 								Classroom.Level,
 								Classroom.Name,
+								Classroom.Year,
 								Classroom.Creation
 							FROM {Table}
 							JOIN School ON School.ID = Classroom.School
@@ -106,6 +110,7 @@ namespace GradesManager.Infra.Repositories
 								School.Creation School_Creation,
 								Classroom.Level,
 								Classroom.Name,
+								Classroom.Year,
 								Classroom.Creation
 							FROM {Table}
 							JOIN School ON School.ID = Classroom.School
@@ -131,6 +136,7 @@ namespace GradesManager.Infra.Repositories
 								School.Creation School_Creation,
 								Classroom.Level,
 								Classroom.Name,
+								Classroom.Year,
 								Classroom.Creation
 							FROM {Table}
 							JOIN School ON School.ID = Classroom.School

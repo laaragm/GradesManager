@@ -13,6 +13,8 @@ namespace GradesManager.Services.Abstractions
 		Task<ClassroomModel> FetchById(long id);
 		Task Delete(long id);
 		Task Update(ClassroomModel model);
+		Task<IEnumerable<ClassroomModel>> BySchool(long schoolID);
+		Task<IEnumerable<long>> DistinctLevelsBySchool(long schoolID);
 
 	}
 }

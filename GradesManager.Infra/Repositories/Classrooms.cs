@@ -117,5 +117,44 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
+		public async Task<IEnumerable<Classroom>> BySchool(long schoolID)
+		{
+			var query = $@"SELECT
+								Classroom.ID,
+								School.ID School_ID,
+								School.Name School_Name,
+								School.Owner School_Owner,
+								School.Principal School_Principal,
+								School.Address School_Address,
+								School.PhoneNumber School_PhoneNumber,
+								School.CNPJ School_CNPJ,
+								School.Creation School_Creation,
+								Classroom.Level,
+								Classroom.Name,
+								Classroom.Creation
+							FROM {Table}
+							JOIN School ON School.ID = Classroom.School
+							WHERE Classroom.Exclusion IS NULL
+								AND Classroom.School = @schoolID;";
+			using (var connection = GetConnection())
+			{
+				return Slapper.AutoMapper.MapDynamic<Classroom>(await connection.QueryAsync<dynamic>(query, new { schoolID }));
+			}
+		}
+
+		public async Task<IEnumerable<long>> DistinctLevelsBySchool(long schoolID)
+		{
+			var query = $@"SELECT Classroom.[Level]
+							FROM Classroom
+							JOIN School ON School.ID = Classroom.School
+							WHERE Classroom.Exclusion IS NULL
+								AND Classroom.School = @schoolID
+							GROUP BY Classroom.[Level];";
+			using (var connection = GetConnection())
+			{
+				return await connection.QueryAsync<long>(query, new { schoolID });
+			}
+		}
+
 	}
 }

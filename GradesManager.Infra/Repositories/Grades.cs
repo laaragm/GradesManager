@@ -127,5 +127,20 @@ namespace GradesManager.Infra.Repositories
 				return Slapper.AutoMapper.MapDynamic<Grade>(await connection.QuerySingleOrDefaultAsync<dynamic>(query, new { id }));
 			}
 		}
+
+		public async Task<decimal?> GradeAverageBySchoolLevel(long levelID, long schoolID)
+		{
+			var query = $@"SELECT AVG(ObtainedValue) 
+							FROM Grade
+							JOIN Discipline				ON Discipline.ID					= Grade.Discipline
+							JOIN ClassroomDiscipline	ON ClassroomDiscipline.Discipline	= Discipline.ID
+							JOIN Classroom				ON Classroom.ID						= ClassroomDiscipline.Classroom
+							WHERE Classroom.School = @schoolID
+								AND Level = @levelID;";
+			using (var connection = GetConnection())
+			{
+				return await connection.QuerySingleAsync<decimal?>(query, new { levelID, schoolID, });
+			}
+		}
 	}
 }

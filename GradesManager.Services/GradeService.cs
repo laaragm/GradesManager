@@ -52,6 +52,9 @@ namespace GradesManager.Services
 
 		public async Task Update(GradeModel model) => await Grades.Update(model.ToEntity());
 
+		public async Task<decimal?> CalculateGradeAverageBySchoolLevel(long levelID, long schoolID)
+			=> await Grades.GradeAverageBySchoolLevel(levelID, schoolID);
+
 	}
 }
 

@@ -48,6 +48,15 @@ namespace GradesManager.Services
 
 		public async Task Update(ClassroomModel model) => await Classrooms.Update(model.ToEntity());
 
+		public async Task<IEnumerable<ClassroomModel>> BySchool(long schoolID)
+		{
+			var result = await Classrooms.BySchool(schoolID);
+			return result.Select(Mapper.Map<ClassroomModel>).ToList();
+		}
+
+		public async Task<IEnumerable<long>> DistinctLevelsBySchool(long schoolID)
+			=> await Classrooms.DistinctLevelsBySchool(schoolID);
+
 	}
 }
 

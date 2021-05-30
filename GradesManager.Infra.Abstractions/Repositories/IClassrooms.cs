@@ -11,6 +11,8 @@ namespace GradesManager.Infra.Abstractions.Repositories
 	{
 		Task Update(Classroom classroom);
 		Task<Classroom> Save(Classroom classroom);
+		Task<IEnumerable<Classroom>> BySchool(long schoolID);
+		Task<IEnumerable<long>> DistinctLevelsBySchool(long schoolID);
 
 	}
 }

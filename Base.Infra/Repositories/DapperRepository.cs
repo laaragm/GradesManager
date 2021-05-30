@@ -30,7 +30,7 @@ namespace Base.Infra.Repositories
 
 		public virtual IEnumerable<T> All()
 		{
-			var query = $"SELECT * FROM {Table};";
+			var query = $"SELECT * FROM {Table} WHERE Exclusion IS NULL;";
 			using (var connection = GetConnection())
 			{
 				return connection.Query<T>(query);
@@ -55,16 +55,16 @@ namespace Base.Infra.Repositories
 			}
 		}
 
-		public async Task<IEnumerable<T>> AllAsync()
+		public virtual async Task<IEnumerable<T>> AllAsync()
 		{
-			var query = $"SELECT * FROM {Table};";
+			var query = $"SELECT * FROM {Table} WHERE Exclusion IS NULL;";
 			using (var connection = GetConnection())
 			{
 				return await connection.QueryAsync<T>(query);
 			}
 		}
 
-		public async Task DeleteAsync(long id)
+		public virtual async Task DeleteAsync(long id)
 		{
 			var query = $"UPDATE {Table} SET Exclusion = @exclusion WHERE ID = @id;";
 			using (var connection = GetConnection())
@@ -73,7 +73,7 @@ namespace Base.Infra.Repositories
 			}
 		}
 
-		public async Task<T> FetchByIDAsync(long id)
+		public virtual async Task<T> FetchByIDAsync(long id)
 		{
 			var query = $"SELECT * FROM {Table} WHERE ID = @id;";
 			using (var connection = GetConnection())

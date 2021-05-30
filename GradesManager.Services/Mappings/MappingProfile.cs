@@ -9,6 +9,7 @@ namespace GradesManager.Services
 		public MappingProfile()
 		{
 			CreateMap<School, SchoolModel>();
+			CreateMap<Classroom, ClassroomModel>();
 		}
 	}
 }

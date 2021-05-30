@@ -62,7 +62,8 @@ namespace GradesManager.Infra.Repositories
 					principal = school.Principal,
 					address = school.Address,
 					phoneNumber = school.PhoneNumber,
-					cnpj = school.CNPJ
+					cnpj = school.CNPJ,
+					id = school.ID
 				});
 			}
 		}

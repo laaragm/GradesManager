@@ -15,6 +15,21 @@ namespace GradesManager.Domain.Models
 		public string PhoneNumber { get; set; }
 		public string CNPJ { get; set; }
 
+		public SchoolModel(School school)
+		{
+			ID = school.ID;
+			Name = school.Name;
+			Owner = school.Owner;
+			Principal = school.Principal;
+			Address = school.Address;
+			PhoneNumber = school.PhoneNumber;
+			CNPJ = school.CNPJ;
+		}
+
+		public SchoolModel()
+		{
+		}
+
 		public School ToEntity()
 		{
 			return new School
@@ -28,5 +43,6 @@ namespace GradesManager.Domain.Models
 				CNPJ = CNPJ
 			};
 		}
+
 	}
 }

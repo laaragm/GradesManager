@@ -11,7 +11,8 @@ namespace GradesManager.Services.Extensions
 		public static IServiceCollection AddServices(this IServiceCollection services)
 		{
 			return services
-					.AddScoped<ISchoolService, SchoolService>();
+					.AddScoped<ISchoolService, SchoolService>()
+					.AddScoped<IClassroomService, ClassroomService>();
 		}
 
 	}

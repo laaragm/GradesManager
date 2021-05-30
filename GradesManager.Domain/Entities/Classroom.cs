@@ -10,7 +10,6 @@ namespace GradesManager.Domain.Entities
 	{
 		public virtual School School { get; set; }
 		public Level Level { get; set; }
-		public IEnumerable<Student> Students { get; set; }
 
 	}
 }

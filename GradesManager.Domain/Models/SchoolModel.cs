@@ -14,6 +14,7 @@ namespace GradesManager.Domain.Models
 		public string Address { get; set; }
 		public string PhoneNumber { get; set; }
 		public string CNPJ { get; set; }
+		public DateTime? Creation { get; }
 
 		public SchoolModel(School school)
 		{
@@ -24,6 +25,7 @@ namespace GradesManager.Domain.Models
 			Address = school.Address;
 			PhoneNumber = school.PhoneNumber;
 			CNPJ = school.CNPJ;
+			Creation = school.Creation;
 		}
 
 		public SchoolModel()
@@ -40,7 +42,8 @@ namespace GradesManager.Domain.Models
 				Principal = Principal,
 				Address = Address,
 				PhoneNumber = PhoneNumber,
-				CNPJ = CNPJ
+				CNPJ = CNPJ,
+				Creation = Creation,
 			};
 		}
 

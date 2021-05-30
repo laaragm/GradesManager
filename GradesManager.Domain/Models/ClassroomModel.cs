@@ -13,13 +13,15 @@ namespace GradesManager.Domain.Models
 		public string Name { get; set; }
 		public virtual SchoolModel School { get; set; }
 		public Level Level { get; set; }
+		public DateTime? Creation { get; }
 
 		public ClassroomModel(Classroom classroom)
 		{
 			ID = classroom.ID;
 			Name = classroom.Name;
-			School = FetchSchoolModel(classroom);
+			School = GetSchoolModel(classroom);
 			Level = classroom.Level;
+			Creation = classroom.Creation;
 		}
 
 		public ClassroomModel()
@@ -33,11 +35,12 @@ namespace GradesManager.Domain.Models
 				ID = ID,
 				Name = Name,
 				School = School?.ToEntity(),
-				Level = Level
+				Level = Level,
+				Creation = Creation
 			};
 		}
 
-		private SchoolModel FetchSchoolModel(Classroom classroom)
+		private SchoolModel GetSchoolModel(Classroom classroom)
 			=> classroom.School == null ? new SchoolModel() : new SchoolModel(classroom.School);
 
 	}

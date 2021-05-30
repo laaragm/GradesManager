@@ -61,7 +61,13 @@ namespace GradesManager.API
 			IMapper mapper = mapperConfig.CreateMapper();
 			services.AddSingleton(mapper);
 
-			services.AddMvc();
+			services
+				.AddMvc()
+				.AddJsonOptions(x =>
+				{
+					x.JsonSerializerOptions.MaxDepth = 100;
+					x.JsonSerializerOptions.IgnoreNullValues = true;
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

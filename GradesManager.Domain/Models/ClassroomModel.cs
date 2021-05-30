@@ -9,7 +9,7 @@ namespace GradesManager.Domain.Models
 {
 	public class ClassroomModel
 	{
-		public long ID { get; }
+		public long ID { get; set; }
 		public string Name { get; set; }
 		public virtual SchoolModel School { get; set; }
 		public Level Level { get; set; }

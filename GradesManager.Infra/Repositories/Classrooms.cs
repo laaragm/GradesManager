@@ -15,18 +15,18 @@ namespace GradesManager.Infra.Repositories
 {
 	public class Classrooms : DapperRepository<Classroom>, IClassrooms
 	{
-		static IEnumerable<Type> Types = new List<Type> { typeof(School) };
+		static IEnumerable<Type> Types = new List<Type> { typeof(Classroom), typeof(School) };
 
 		public Classrooms(IInfraSettings infraSettings) : base(infraSettings, "Classroom")
 		{
-			//ConfigureAutoMapper();
+			ConfigureAutoMapper();
 		}
 
-		//private void ConfigureAutoMapper()
-		//{
-		//	foreach (var type in Types)
-		//		AutoMapper.Configuration.AddIdentifier(type, "ID");
-		//}
+		private void ConfigureAutoMapper()
+		{
+			foreach (var type in Types)
+				Slapper.AutoMapper.Configuration.AddIdentifier(type, "ID");
+		}
 
 		public async Task<Classroom> Save(Classroom classroom)
 		{
@@ -54,7 +54,7 @@ namespace GradesManager.Infra.Repositories
 							SET
 								Name = @name,
 								School = @school,
-								Level = @level,
+								Level = @level
 							WHERE ID = @id;";
 			using (var connection = GetConnection())
 			{
@@ -82,12 +82,38 @@ namespace GradesManager.Infra.Repositories
 								School.Creation School_Creation,
 								Classroom.Level,
 								Classroom.Name,
-								Classroom.Creation,
-							FROM {Table} 
-							WHERE Exclusion IS NULL;";
+								Classroom.Creation
+							FROM {Table}
+							JOIN School ON School.ID = Classroom.School
+							WHERE Classroom.Exclusion IS NULL;";
 			using (var connection = GetConnection())
 			{
-				return await AutoMapper.MapDynamic<Classroom>(connection.QueryAsync<dynamic>(query));
+				return Slapper.AutoMapper.MapDynamic<Classroom>(await connection.QueryAsync<dynamic>(query));
+			}
+		}
+
+		public override async Task<Classroom> FetchByIDAsync(long id)
+		{
+			var query = $@"SELECT
+								Classroom.ID,
+								School.ID School_ID,
+								School.Name School_Name,
+								School.Owner School_Owner,
+								School.Principal School_Principal,
+								School.Address School_Address,
+								School.PhoneNumber School_PhoneNumber,
+								School.CNPJ School_CNPJ,
+								School.Creation School_Creation,
+								Classroom.Level,
+								Classroom.Name,
+								Classroom.Creation
+							FROM {Table}
+							JOIN School ON School.ID = Classroom.School
+							WHERE Classroom.Exclusion IS NULL
+								AND Classroom.ID = @id;";
+			using (var connection = GetConnection())
+			{
+				return Slapper.AutoMapper.MapDynamic<Classroom>(await connection.QuerySingleOrDefaultAsync<dynamic>(query, new { id }));
 			}
 		}
 

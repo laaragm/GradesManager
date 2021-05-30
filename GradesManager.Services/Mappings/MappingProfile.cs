@@ -12,6 +12,7 @@ namespace GradesManager.Services
 			CreateMap<Classroom, ClassroomModel>();
 			CreateMap<LegalRepresentative, LegalRepresentativeModel>();
 			CreateMap<Student, StudentModel>();
+			CreateMap<Discipline, DisciplineModel>();
 		}
 	}
 }

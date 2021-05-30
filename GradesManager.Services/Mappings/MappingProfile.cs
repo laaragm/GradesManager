@@ -14,6 +14,7 @@ namespace GradesManager.Services
 			CreateMap<Student, StudentModel>();
 			CreateMap<Discipline, DisciplineModel>();
 			CreateMap<Grade, GradeModel>();
+			CreateMap<ClassroomDiscipline, ClassroomDisciplineModel>();
 		}
 	}
 }

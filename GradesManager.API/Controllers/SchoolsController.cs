@@ -54,5 +54,12 @@ namespace GradesManager.API.Controllers
 			await SchoolService.Delete(id);
 			return Ok();
 		}
+
+		[HttpPut]
+		public async Task<ActionResult> Update(SchoolModel model)
+		{
+			await SchoolService.Update(model);
+			return Ok();
+		}
 	}
 }

@@ -22,9 +22,9 @@ namespace GradesManager.Services
 			Mapper = mapper;
 		}
 
-		public async Task<SchoolModel> Save(SchoolModel school)
+		public async Task<SchoolModel> Save(SchoolModel model)
 		{
-			var result = await Schools.Save(school.ToEntity());
+			var result = await Schools.Save(model.ToEntity());
 			return Mapper.Map<School, SchoolModel>(result);
 		}
 
@@ -41,6 +41,8 @@ namespace GradesManager.Services
 		}
 
 		public async Task Delete(long id) => await Schools.DeleteAsync(id);
+
+		public async Task Update(SchoolModel model) => await Schools.Update(model.ToEntity());
 
 	}
 }

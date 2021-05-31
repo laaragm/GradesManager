@@ -9,6 +9,7 @@ namespace GradesManager.Domain.Entities
 	{
 		public virtual Student Student { get; set; }
 		public virtual Discipline Discipline { get; set; }
+		public virtual Classroom Classroom { get; set; }
 		public decimal TotalValue { get; set; }
 		public decimal ObtainedValue { get; set; }
 	}

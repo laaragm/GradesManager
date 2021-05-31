@@ -29,15 +29,16 @@ namespace GradesManager.Infra.Repositories
 
 		public async Task<Grade> Save(Grade grade)
 		{
-			var query = $@"INSERT INTO {Table} (Student, Discipline, TotalValue, ObtainedValue, Creation)
+			var query = $@"INSERT INTO {Table} (Student, Discipline, Classroom, TotalValue, ObtainedValue, Creation)
 							OUTPUT Inserted.ID
-							VALUES(@student, @discipline, @totalValue, @obtainedValue, @creation);";
+							VALUES(@student, @discipline, @classroom, @totalValue, @obtainedValue, @creation);";
 			using (var connection = GetConnection())
 			{
 				var id = await connection.QueryAsync<long>(query, new
 				{
 					student = grade.Student?.ID,
 					discipline = grade.Discipline?.ID,
+					classroom = grade.Classroom?.ID,
 					totalValue = grade.TotalValue,
 					obtainedValue = grade.ObtainedValue,
 					creation = DateTime.UtcNow
@@ -54,6 +55,7 @@ namespace GradesManager.Infra.Repositories
 							SET
 								Student = @student, 
 								Discipline = @discipline,
+								Classroom = @classroom,
 								TotalValue = @totalValue,
 								ObtainedValue = @obtainedValue
 							WHERE ID = @id;";
@@ -63,6 +65,7 @@ namespace GradesManager.Infra.Repositories
 				{
 					student = grade.Student?.ID,
 					discipline = grade.Discipline?.ID,
+					classroom = grade.Classroom?.ID,
 					totalValue = grade.TotalValue,
 					obtainedValue = grade.ObtainedValue,
 					ID = grade.ID,
@@ -86,6 +89,11 @@ namespace GradesManager.Infra.Repositories
 							Discipline.ID Discipline_ID,
 							Discipline.Name Discipline_Name,
 							Discipline.Creation Discipline_Creation,
+							Classroom.ID Classroom_ID,
+							Classroom.Level Classroom_Level,
+							Classroom.Name Classroom_Name,
+							Classroom.Year Classroom_Year,
+							Classroom.Creation Classroom_Creation,
 							Grade.TotalValue,
 							Grade.ObtainedValue,
 							Grade.Creation
@@ -93,6 +101,7 @@ namespace GradesManager.Infra.Repositories
 						JOIN Student				ON Student.ID				= Grade.Student
 						JOIN LegalRepresentative	ON LegalRepresentative.ID	= Student.LegalRepresentative
 						JOIN Discipline				ON Discipline.ID			= Grade.Discipline
+						JOIN Classroom				ON Classroom.ID				= Grade.Classroom
 						WHERE Grade.Exclusion IS NULL";
 		}
 
@@ -115,6 +124,7 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
+		// TODO: Refactor since now we have a Classroom property in Grade
 		public async Task<decimal?> GradeAverageBySchoolLevel(long levelID, long schoolID)
 		{
 			var query = $@"SELECT AVG(ObtainedValue) 

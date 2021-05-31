@@ -12,6 +12,7 @@ namespace GradesManager.Domain.Models
 		public long ID { get; set; }
 		public virtual StudentModel Student { get; set; }
 		public virtual DisciplineModel Discipline { get; set; }
+		public virtual ClassroomModel Classroom { get; set; }
 		public decimal TotalValue { get; set; }
 		public decimal ObtainedValue { get; set; }
 		public DateTime? Creation { get; }
@@ -21,6 +22,7 @@ namespace GradesManager.Domain.Models
 			ID = grade.ID;
 			Student = GetStudentModel(grade);
 			Discipline = GetDisciplineModel(grade);
+			Classroom = GetClassroomModel(grade);
 			TotalValue = grade.TotalValue;
 			ObtainedValue = grade.ObtainedValue;
 			Creation = grade.Creation;
@@ -37,6 +39,7 @@ namespace GradesManager.Domain.Models
 				ID = ID,
 				Student = Student?.ToEntity(),
 				Discipline = Discipline?.ToEntity(),
+				Classroom = Classroom?.ToEntity(),
 				TotalValue = TotalValue,
 				ObtainedValue = ObtainedValue,
 				Creation = Creation
@@ -48,6 +51,9 @@ namespace GradesManager.Domain.Models
 
 		private DisciplineModel GetDisciplineModel(Grade grade)
 			=> grade.Discipline == null ? new DisciplineModel() : new DisciplineModel(grade.Discipline);
+
+		private ClassroomModel GetClassroomModel(Grade grade)
+			=> grade.Classroom == null ? new ClassroomModel() : new ClassroomModel(grade.Classroom);
 
 	}
 }

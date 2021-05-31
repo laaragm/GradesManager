@@ -136,5 +136,52 @@ namespace GradesManager.Infra.Repositories
 				return await connection.QuerySingleAsync<decimal?>(query, new { levelID, schoolID, });
 			}
 		}
+
+		public async Task<IEnumerable<Grade>> ByStudent(long studentID, long schoolID)
+		{
+			var query = $@"SELECT
+							Grade.ID,
+							Student.ID Student_ID,
+							Student.Name Student_Name,
+							LegalRepresentative.ID LegalRepresentative_ID,
+							LegalRepresentative.Name LegalRepresentative_Name,
+							LegalRepresentative.PhoneNumber LegalRepresentative_PhoneNumber,
+							LegalRepresentative.Creation LegalRepresentative_Creation,
+							Student.Birthday Student_Birthday,
+							Student.Address Student_Address,
+							Student.Creation Student_Creation,
+							Discipline.ID Discipline_ID,
+							Discipline.Name Discipline_Name,
+							Discipline.Creation Discipline_Creation,
+							Classroom.ID Classroom_ID,
+							School.ID School_ID,
+							School.Name School_Name,
+							School.Owner School_Owner,
+							School.Principal School_Principal,
+							School.Address School_Address,
+							School.PhoneNumber School_PhoneNumber,
+							School.CNPJ School_CNPJ,
+							School.Creation School_Creation,
+							Classroom.Level Classroom_Level,
+							Classroom.Name Classroom_Name,
+							Classroom.Year Classroom_Year,
+							Classroom.Creation Classroom_Creation,
+							Grade.TotalValue,
+							Grade.ObtainedValue,
+							Grade.Creation
+						FROM {Table}
+						JOIN Student				ON Student.ID				= Grade.Student
+						JOIN LegalRepresentative	ON LegalRepresentative.ID	= Student.LegalRepresentative
+						JOIN Discipline				ON Discipline.ID			= Grade.Discipline
+						JOIN Classroom				ON Classroom.ID				= Grade.Classroom
+						JOIN School					ON School.ID				= Classroom.School
+						WHERE Grade.Exclusion IS NULL
+							AND Student.ID = @studentID
+							AND School.ID = @schoolID;";
+			using (var connection = GetConnection())
+			{
+				return Slapper.AutoMapper.MapDynamic<Grade>(await connection.QueryAsync<dynamic>(query, new { studentID, schoolID }));
+			}
+		}
 	}
 }

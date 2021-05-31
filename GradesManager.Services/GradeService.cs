@@ -55,6 +55,12 @@ namespace GradesManager.Services
 		public async Task<decimal?> CalculateGradeAverageBySchoolLevel(long levelID, long schoolID)
 			=> await Grades.GradeAverageBySchoolLevel(levelID, schoolID);
 
+		public async Task<IEnumerable<GradeModel>> ByStudent(long studentID, long schoolID)
+		{
+			var result = await Grades.ByStudent(studentID, schoolID);
+			return result.Select(Mapper.Map<GradeModel>).ToList();
+		}
+
 	}
 }
 

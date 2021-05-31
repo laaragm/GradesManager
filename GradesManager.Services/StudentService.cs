@@ -14,24 +14,20 @@ namespace GradesManager.Services
 	public class StudentService : IStudentService
 	{
 		IStudents Students { get; }
-		IClassroomService ClassroomService { get; }
 		ILegalRepresentativeService LegalRepresentativeService { get; }
 		IMapper Mapper { get; }
 
-		public StudentService(IStudents students, IMapper mapper, IClassroomService classroomService, ILegalRepresentativeService legalRepresentativeService)
+		public StudentService(IStudents students, IMapper mapper, ILegalRepresentativeService legalRepresentativeService)
 		{
 			Students = students;
 			Mapper = mapper;
-			ClassroomService = classroomService;
 			LegalRepresentativeService = legalRepresentativeService;
 		}
 
 		public async Task<StudentModel> Save(StudentModel model)
 		{
-			var classroom = model.Classroom?.ID == 0 ? await ClassroomService.Save(model.Classroom) : await ClassroomService.FetchById(model.Classroom.ID);
 			var legalRepresentative = model.LegalRepresentative?.ID == 0 
 				? await LegalRepresentativeService.Save(model.LegalRepresentative) : await LegalRepresentativeService.FetchById(model.LegalRepresentative.ID);
-			model.Classroom = classroom;
 			model.LegalRepresentative = legalRepresentative;
 			var result = await Students.Save(model.ToEntity());
 			return Mapper.Map<StudentModel>(result);

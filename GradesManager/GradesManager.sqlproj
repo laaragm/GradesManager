@@ -66,5 +66,6 @@
     <Build Include="Tables\Discipline.sql" />
     <Build Include="Tables\ClassroomDiscipline.sql" />
     <Build Include="Tables\School.sql" />
+    <Build Include="Tables\ClassroomStudent.sql" />
   </ItemGroup>
 </Project>

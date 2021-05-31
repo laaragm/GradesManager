@@ -4,6 +4,7 @@
 	[School]    BIGINT          NOT NULL,
 	[Level]     BIGINT          NOT NULL,
 	[Name]      NVARCHAR(MAX)   NULL,
+	[Year]      BIGINT          NULL,
 	[Creation]  DATETIME        NULL,
 	[Exclusion] DATETIME        NULL,
 	CONSTRAINT [PK_Classroom] PRIMARY KEY CLUSTERED ([ID] ASC),

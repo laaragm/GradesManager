@@ -13,7 +13,7 @@ namespace GradesManager.Infra.Repositories
 {
 	public class Students : DapperRepository<Student>, IStudents
 	{
-		static IEnumerable<Type> Types = new List<Type> { typeof(Classroom), typeof(Student), typeof(LegalRepresentative), typeof(School) };
+		static IEnumerable<Type> Types = new List<Type> { typeof(Classroom), typeof(Student), typeof(LegalRepresentative), typeof(School), typeof(ClassroomStudent) };
 
 		public Students(IInfraSettings infraSettings) : base(infraSettings, "Student")
 		{
@@ -28,15 +28,14 @@ namespace GradesManager.Infra.Repositories
 
 		public async Task<Student> Save(Student student)
 		{
-			var query = $@"INSERT INTO {Table} (Name, Classroom, LegalRepresentative, Birthday, Address, Creation)
+			var query = $@"INSERT INTO {Table} (Name, LegalRepresentative, Birthday, Address, Creation)
 							OUTPUT Inserted.ID
-							VALUES(@name, @classroom, @legalRepresentative, @birthday, @address, @creation);";
+							VALUES(@name, @legalRepresentative, @birthday, @address, @creation);";
 			using (var connection = GetConnection())
 			{
 				var id = await connection.QueryAsync<long>(query, new
 				{
 					name = student.Name,
-					classroom = student.Classroom?.ID,
 					legalRepresentative = student.LegalRepresentative?.ID,
 					birthday = student.Birthday,
 					address = student.Address,
@@ -53,7 +52,6 @@ namespace GradesManager.Infra.Repositories
 			var query = $@"UPDATE {Table}
 							SET
 								Name = @name,
-								Classroom = @classroom,
 								LegalRepresentative = @legalRepresentative,
 								Birthday = @birthday,
 								Address = @address
@@ -63,7 +61,6 @@ namespace GradesManager.Infra.Repositories
 				await connection.QueryAsync<Student>(query, new
 				{
 					name = student.Name,
-					classroom = student.Classroom?.ID,
 					legalRepresentative = student.LegalRepresentative?.ID,
 					birthday = student.Birthday,
 					address = student.Address,
@@ -77,19 +74,6 @@ namespace GradesManager.Infra.Repositories
 			get => $@"SELECT
 								Student.ID,
 								Student.Name,
-								Classroom.ID Classroom_ID,
-								School.ID School_ID,
-								School.Name School_Name,
-								School.Owner School_Owner,
-								School.Principal School_Principal,
-								School.Address School_Address,
-								School.PhoneNumber School_PhoneNumber,
-								School.CNPJ School_CNPJ,
-								School.Creation School_Creation,
-								Classroom.Level Classroom_Level,
-								Classroom.Name Classroom_Name,
-								Classroom.Year Classroom_Year,
-								Classroom.Creation Classroom_Creation,
 								LegalRepresentative.ID LegalRepresentative_ID,
 								LegalRepresentative.Name LegalRepresentative_Name,
 								LegalRepresentative.PhoneNumber LegalRepresentative_PhoneNumber,
@@ -99,8 +83,6 @@ namespace GradesManager.Infra.Repositories
 								Student.Creation
 							FROM {Table}
 							JOIN LegalRepresentative	ON LegalRepresentative.ID	= Student.LegalRepresentative
-							JOIN Classroom				ON Classroom.ID				= Student.Classroom
-							JOIN School					ON School.ID				= Classroom.School
 							WHERE Student.Exclusion IS NULL";
 		}
 

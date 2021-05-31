@@ -34,5 +34,16 @@ namespace GradesManager.Services
 			return gradeAverageByLevel;
 		}
 
+		public void AnalyseStudentsPerformance(IEnumerable<long> students)
+		{
+			/* Analise de aluno: apresentar uma lista de alunos(no mínimo 5) onde cada aluno possui uma análise 
+			pessoal de resultados ao decorrer dos anos letivos em um gráfico do tipo radar para cada aluno.*/
+			foreach (var student in students)
+			{
+
+			}
+
+		}
+
 	}
 }

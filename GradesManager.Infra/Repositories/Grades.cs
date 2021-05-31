@@ -76,18 +76,6 @@ namespace GradesManager.Infra.Repositories
 							Grade.ID,
 							Student.ID Student_ID,
 							Student.Name Student_Name,
-							Classroom.ID Classroom_ID,
-							School.ID School_ID,
-							School.Owner School_Owner,
-							School.Principal School_Principal,
-							School.Address School_Address,
-							School.PhoneNumber School_PhoneNumber,
-							School.CNPJ School_CNPJ,
-							School.Creation School_Creation,
-							Classroom.Level Classroom_Level,
-							Classroom.Name Classroom_Name,
-							Classroom.Year Classroom_Year,
-							Classroom.Creation Classroom_Creation,
 							LegalRepresentative.ID LegalRepresentative_ID,
 							LegalRepresentative.Name LegalRepresentative_Name,
 							LegalRepresentative.PhoneNumber LegalRepresentative_PhoneNumber,
@@ -103,8 +91,6 @@ namespace GradesManager.Infra.Repositories
 							Grade.Creation
 						FROM {Table}
 						JOIN Student				ON Student.ID				= Grade.Student
-						JOIN Classroom				ON Classroom.ID				= Student.Classroom
-						JOIN School					ON School.ID				= Classroom.School
 						JOIN LegalRepresentative	ON LegalRepresentative.ID	= Student.LegalRepresentative
 						JOIN Discipline				ON Discipline.ID			= Grade.Discipline
 						WHERE Grade.Exclusion IS NULL";

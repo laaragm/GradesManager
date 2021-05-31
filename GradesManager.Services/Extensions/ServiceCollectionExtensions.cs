@@ -18,7 +18,8 @@ namespace GradesManager.Services.Extensions
 					.AddScoped<IDisciplineService, DisciplineService>()
 					.AddScoped<IGradeService, GradeService>()
 					.AddScoped<IClassroomDisciplineService, ClassroomDisciplineService>()
-					.AddScoped<IPerformanceAnalysisService, PerformanceAnalysisService>();
+					.AddScoped<IPerformanceAnalysisService, PerformanceAnalysisService>()
+					.AddScoped<IClassroomStudentService, ClassroomStudentService>();
 		}
 
 	}

@@ -13,12 +13,13 @@ namespace GradesManager.Infra.Extensions
 		{
 			return services
 					.AddScoped<ISchools, Schools>()
-					.AddScoped<IClassroomDisciplines, ClassroomDisciplines>()
+					.AddScoped<IClassroomStudents, ClassroomStudents>()
 					.AddScoped<IDisciplines, Disciplines>()
 					.AddScoped<IClassrooms, Classrooms>()
 					.AddScoped<IGrades, Grades>()
 					.AddScoped<ILegalRepresentatives, LegalRepresentatives>()
-					.AddScoped<IStudents, Students>();
+					.AddScoped<IStudents, Students>()
+					.AddScoped<IClassroomDisciplines, ClassroomDisciplines>();
 		}
 
 	}

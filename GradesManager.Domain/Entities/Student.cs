@@ -7,7 +7,6 @@ namespace GradesManager.Domain.Entities
 {
 	public class Student : Entity
 	{
-		public virtual Classroom Classroom { get; set; }
 		public LegalRepresentative LegalRepresentative { get; set; }
 		public virtual IEnumerable<Grade> Grades { get; set; }
 		public DateTime? Birthday { get; set; }

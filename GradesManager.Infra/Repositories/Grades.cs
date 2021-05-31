@@ -124,16 +124,13 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
-		// TODO: Refactor since now we have a Classroom property in Grade
 		public async Task<decimal?> GradeAverageBySchoolLevel(long levelID, long schoolID)
 		{
 			var query = $@"SELECT AVG(ObtainedValue) 
 							FROM Grade
-							JOIN Discipline				ON Discipline.ID					= Grade.Discipline
-							JOIN ClassroomDiscipline	ON ClassroomDiscipline.Discipline	= Discipline.ID
-							JOIN Classroom				ON Classroom.ID						= ClassroomDiscipline.Classroom
+							JOIN Classroom ON Classroom.ID = Grade.Classroom
 							WHERE Classroom.School = @schoolID
-								AND Level = @levelID;";
+								AND Classroom.Level = @levelID;";
 			using (var connection = GetConnection())
 			{
 				return await connection.QuerySingleAsync<decimal?>(query, new { levelID, schoolID, });

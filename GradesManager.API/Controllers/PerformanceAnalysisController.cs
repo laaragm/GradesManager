@@ -22,7 +22,7 @@ namespace GradesManager.API.Controllers
 			PerformanceAnalysisService = performanceAnalysisService;
 		}
 
-		[HttpGet("gradeAverageBySchoolLevels")]
+		[HttpGet("gradeAverageBySchoolLevels/{schoolID}")]
 		public async Task<ActionResult<IDictionary<string, decimal?>>> GradeAverageByLevelsInSchool(long schoolID)
 		{
 			var result = await PerformanceAnalysisService.CalculateGradeAverageByLevelsInSchool(schoolID);

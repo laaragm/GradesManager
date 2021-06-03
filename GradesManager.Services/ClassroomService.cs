@@ -38,6 +38,12 @@ namespace GradesManager.Services
 			return result.Select(Mapper.Map<ClassroomModel>).ToList();
 		}
 
+		public async Task<IEnumerable<ClassroomModel>> FetchBySchoolId(long id)
+		{
+			var result = await Classrooms.BySchool(id);
+			return result.Select(Mapper.Map<ClassroomModel>).ToList();
+		}
+
 		public async Task<ClassroomModel> FetchById(long id)
 		{
 			var result = await Classrooms.FetchByIDAsync(id);

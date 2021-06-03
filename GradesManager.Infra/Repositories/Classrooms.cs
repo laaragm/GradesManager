@@ -71,9 +71,9 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
-		public override async Task<IEnumerable<Classroom>> AllAsync()
+		private string BaseQuery
 		{
-			var query = $@"SELECT
+			get => $@"SELECT
 								Classroom.ID,
 								School.ID School_ID,
 								School.Name School_Name,
@@ -89,7 +89,12 @@ namespace GradesManager.Infra.Repositories
 								Classroom.Creation
 							FROM {Table}
 							JOIN School ON School.ID = Classroom.School
-							WHERE Classroom.Exclusion IS NULL;";
+							WHERE Classroom.Exclusion IS NULL";
+		}
+
+		public override async Task<IEnumerable<Classroom>> AllAsync()
+		{
+			var query = BaseQuery;
 			using (var connection = GetConnection())
 			{
 				return Slapper.AutoMapper.MapDynamic<Classroom>(await connection.QueryAsync<dynamic>(query));
@@ -98,23 +103,7 @@ namespace GradesManager.Infra.Repositories
 
 		public override async Task<Classroom> FetchByIDAsync(long id)
 		{
-			var query = $@"SELECT
-								Classroom.ID,
-								School.ID School_ID,
-								School.Name School_Name,
-								School.Owner School_Owner,
-								School.Principal School_Principal,
-								School.Address School_Address,
-								School.PhoneNumber School_PhoneNumber,
-								School.CNPJ School_CNPJ,
-								School.Creation School_Creation,
-								Classroom.Level,
-								Classroom.Name,
-								Classroom.Year,
-								Classroom.Creation
-							FROM {Table}
-							JOIN School ON School.ID = Classroom.School
-							WHERE Classroom.Exclusion IS NULL
+			var query = $@"{BaseQuery}
 								AND Classroom.ID = @id;";
 			using (var connection = GetConnection())
 			{
@@ -124,23 +113,7 @@ namespace GradesManager.Infra.Repositories
 
 		public async Task<IEnumerable<Classroom>> BySchool(long schoolID)
 		{
-			var query = $@"SELECT
-								Classroom.ID,
-								School.ID School_ID,
-								School.Name School_Name,
-								School.Owner School_Owner,
-								School.Principal School_Principal,
-								School.Address School_Address,
-								School.PhoneNumber School_PhoneNumber,
-								School.CNPJ School_CNPJ,
-								School.Creation School_Creation,
-								Classroom.Level,
-								Classroom.Name,
-								Classroom.Year,
-								Classroom.Creation
-							FROM {Table}
-							JOIN School ON School.ID = Classroom.School
-							WHERE Classroom.Exclusion IS NULL
+			var query = $@"{BaseQuery}
 								AND Classroom.School = @schoolID;";
 			using (var connection = GetConnection())
 			{

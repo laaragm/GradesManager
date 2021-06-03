@@ -39,6 +39,15 @@ namespace GradesManager.API.Controllers
 			return StatusCode(StatusCodes.Status500InternalServerError);
 		}
 
+		[HttpGet("bySchool/{id}")]
+		public async Task<ActionResult<IEnumerable<ClassroomModel>>> BySchool(long id)
+		{
+			var result = await ClassroomService.FetchBySchoolId(id);
+			if (result != null)
+				return Ok(result);
+			return StatusCode(StatusCodes.Status500InternalServerError);
+		}
+
 		[HttpGet("{id}")]
 		public async Task<ActionResult<ClassroomModel>> ById(long id)
 		{

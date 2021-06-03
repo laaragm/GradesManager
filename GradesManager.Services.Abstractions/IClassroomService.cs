@@ -15,6 +15,7 @@ namespace GradesManager.Services.Abstractions
 		Task Update(ClassroomModel model);
 		Task<IEnumerable<ClassroomModel>> BySchool(long schoolID);
 		Task<IEnumerable<long>> DistinctLevelsBySchool(long schoolID);
+		Task<IEnumerable<ClassroomModel>> FetchBySchoolId(long id);
 
 	}
 }

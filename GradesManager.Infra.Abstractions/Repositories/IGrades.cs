@@ -13,6 +13,7 @@ namespace GradesManager.Infra.Abstractions.Repositories
 		Task Update(Grade grade);
 		Task<decimal?> GradeAverageBySchoolLevel(long levelID, long schoolID);
 		Task<IEnumerable<Grade>> ByStudent(long studentID, long schoolID);
+		Task<decimal> GradeAverageByDiscipline(long schoolID, long disciplineID);
 
 	}
 }

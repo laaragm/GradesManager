@@ -16,6 +16,7 @@ namespace GradesManager.Services.Abstractions
 		Task Update(GradeModel model);
 		Task<decimal?> CalculateGradeAverageBySchoolLevel(long levelID, long schoolID);
 		Task<IEnumerable<GradeModel>> ByStudent(long studentID, long schoolID);
+		Task<XyChartModel> CalculateDisciplinesGradeAverage(long schoolID);
 
 	}
 }

@@ -49,6 +49,15 @@ namespace GradesManager.API.Controllers
 			return StatusCode(StatusCodes.Status500InternalServerError);
 		}
 
+		[HttpGet("disciplinesGradeAverage/{schoolID}")]
+		public async Task<ActionResult<XyChartModel>> GradeAverageByDiscipline(long schoolID)
+		{
+			var result = await GradesService.CalculateDisciplinesGradeAverage(schoolID);
+			if (result != null)
+				return Ok(result);
+			return StatusCode(StatusCodes.Status500InternalServerError);
+		}
+
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(long id)
 		{

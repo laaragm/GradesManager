@@ -137,6 +137,21 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
+		public async Task<decimal> GradeAverageByDiscipline(long schoolID, long disciplineID)
+		{
+			var query = $@"SELECT
+							AVG(ObtainedValue)
+						FROM Grade
+						JOIN Discipline ON Discipline.ID = Grade.Discipline
+						JOIN Classroom  ON Classroom.ID  = Grade.Classroom
+						WHERE Classroom.School = @schoolID
+							AND Grade.Discipline = @disciplineID";
+			using (var connection = GetConnection())
+			{
+				return await connection.QuerySingleAsync<decimal>(query, new { schoolID, disciplineID });
+			}
+		}
+
 		public async Task<IEnumerable<Grade>> ByStudent(long studentID, long schoolID)
 		{
 			var query = $@"SELECT

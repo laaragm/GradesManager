@@ -61,6 +61,38 @@ namespace GradesManager.Services
 			return result.Select(Mapper.Map<GradeModel>).ToList();
 		}
 
+		public async Task<decimal> CalculateGradeAverageByDiscipline(long schoolID, long disciplineID)
+			=> await Grades.GradeAverageByDiscipline(schoolID, disciplineID);
+
+		public async Task<XyChartModel> CalculateDisciplinesGradeAverage(long schoolID)
+		{
+			var disciplines = await DisciplineService.FetchAll();
+			var averages = new List<decimal>();
+			foreach (var discipline in disciplines)
+			{
+				var average = await CalculateGradeAverageByDiscipline(schoolID, discipline.ID);
+				averages.Add(average);
+			}
+			var result = new XyChartModel
+			{
+				Categories = disciplines.Select(x => x.Name),
+				Values = averages
+			};
+
+			return result;
+
+			//var result = new List<(string category, decimal average)>();
+			//var disciplines = await DisciplineService.FetchAll();
+			//foreach (var discipline in disciplines)
+			//{
+			//	var average = await CalculateGradeAverageByDiscipline(schoolID, discipline.ID);
+			//	var item = (discipline.Name, average);
+			//	result.Add(item);
+			//}
+
+			//return result;
+		}
+
 	}
 }
 

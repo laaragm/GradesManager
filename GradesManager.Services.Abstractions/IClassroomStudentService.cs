@@ -13,6 +13,7 @@ namespace GradesManager.Services.Abstractions
 		Task<ClassroomStudentModel> FetchById(long id);
 		Task Delete(long id);
 		Task Update(ClassroomStudentModel model);
+		Task<XyChartModel> StudentCountPerLevel(long schoolID);
 
 	}
 }

@@ -80,17 +80,6 @@ namespace GradesManager.Services
 			};
 
 			return result;
-
-			//var result = new List<(string category, decimal average)>();
-			//var disciplines = await DisciplineService.FetchAll();
-			//foreach (var discipline in disciplines)
-			//{
-			//	var average = await CalculateGradeAverageByDiscipline(schoolID, discipline.ID);
-			//	var item = (discipline.Name, average);
-			//	result.Add(item);
-			//}
-
-			//return result;
 		}
 
 	}

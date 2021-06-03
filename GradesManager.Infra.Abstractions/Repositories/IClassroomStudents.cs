@@ -11,6 +11,7 @@ namespace GradesManager.Infra.Abstractions.Repositories
 	{
 		Task<ClassroomStudent> Save(ClassroomStudent classroomStudent);
 		Task Update(ClassroomStudent classroomStudent);
+		Task<IEnumerable<(int quantity, int level)>> StudentCountPerLevel(long schoolID);
 
 	}
 }

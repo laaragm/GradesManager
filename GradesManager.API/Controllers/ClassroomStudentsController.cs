@@ -48,6 +48,15 @@ namespace GradesManager.API.Controllers
 			return StatusCode(StatusCodes.Status500InternalServerError);
 		}
 
+		[HttpGet("studentCountPerLevel/{schoolID}")]
+		public async Task<ActionResult<XyChartModel>> StudentCountPerLevel(long schoolID)
+		{
+			var result = await ClassroomStudentService.StudentCountPerLevel(schoolID);
+			if (result != null)
+				return Ok(result);
+			return StatusCode(StatusCodes.Status500InternalServerError);
+		}
+
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(long id)
 		{

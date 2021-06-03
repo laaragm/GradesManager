@@ -120,5 +120,22 @@ namespace GradesManager.Infra.Repositories
 			}
 		}
 
+		public async Task<IEnumerable<(int quantity, int level)>> StudentCountPerLevel(long schoolID)
+		{
+			var query = $@"SELECT 
+								COUNT(Student.ID) QuantityOfStudents,
+								[Level]
+							FROM ClassroomStudent
+							JOIN Student   ON Student.ID   = ClassroomStudent.Student
+							JOIN Classroom ON Classroom.ID = ClassroomStudent.Classroom
+							JOIN School    ON School.ID    = Classroom.School
+							WHERE School.ID = @schoolID
+							GROUP BY [Level];";
+			using (var connection = GetConnection())
+			{
+				return await connection.QueryAsync<(int, int)>(query, new { schoolID });
+			}
+		}
+
 	}
 }

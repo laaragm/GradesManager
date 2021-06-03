@@ -52,6 +52,24 @@ namespace GradesManager.Services
 
 		public async Task Update(ClassroomStudentModel model) => await ClassroomStudents.Update(model.ToEntity());
 
+		public async Task<XyChartModel> StudentCountPerLevel(long schoolID)
+		{
+			var categories = new List<string>();
+			var values = new List<decimal>();
+			var studentCountPerLevel = await ClassroomStudents.StudentCountPerLevel(schoolID);
+			foreach (var item in studentCountPerLevel)
+			{
+				categories.Add(item.level.ToString());
+				values.Add(item.quantity);
+			}
+
+			return new XyChartModel
+			{
+				Categories = categories,
+				Values = values
+			};
+		}
+
 	}
 }
 
